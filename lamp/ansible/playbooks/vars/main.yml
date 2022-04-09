@@ -1,0 +1,6 @@
+---
+mysql_user: "admin"
+mysql_password: "secret"
+mysql_dbname: "blog"
+db_host: "lamp_db_1"
+webserver_host: "lamp_web_1"

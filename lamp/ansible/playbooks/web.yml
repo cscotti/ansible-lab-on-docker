@@ -1,0 +1,65 @@
+# WEB SERVER
+
+- hosts: web
+  become: true
+  vars_files: vars/main.yml
+
+  tasks:
+  - name: install apache and php last version
+    apt:
+      name:
+        - apache2
+        - php
+        - php-mysql
+        - php-cli
+        - php-cgi
+        - libapache2-mod-php
+      state: present
+      update_cache: yes
+
+  - name: Give writable mode to http folder
+    file:
+      path: /var/www/html
+      state: directory
+      mode: '0755'
+
+
+  # - name: remove default index.html
+  #   file:
+  #     path: /var/www/html/index.php
+  #     state: absent
+
+  # - name: upload web app source
+  #   copy:
+  #     src: app/
+  #     dest: /var/www/html/
+
+  # - name: deploy php database config
+  #   template:
+  #     src: "db-config.php.j2"
+  #     dest: "/var/www/html/db-config.php"
+
+  - name: apache2 listen on port 8080
+    lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 80" line="Listen 8080" state=present
+    notify:
+      - apache service restart
+
+  # - name: apache2 virtualhost on port 8080
+  #   lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:80>" line="<VirtualHost *:8080>" state=present
+  #   notify:
+  #     - restart apache2
+  
+  # - name: apache service restart
+  #   service:
+  #     name: apache2
+  #     state: restarted
+      
+  - name: ensure apache service is start
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
