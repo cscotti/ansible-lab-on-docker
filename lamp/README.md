@@ -6,16 +6,25 @@ video
 
 ## Start containers
 ```
-docker-compose up --scale web=5 -d
+$ docker-compose up --scale web=5 -d
 ```
+lamp_db_1 is up-to-date
+lamp_web_1 is up-to-date
+Recreating lamp_lb_1 ... 
+lamp_master_1 is up-to-date
+lamp_web_2 is up-to-date
+lamp_web_3 is up-to-date
+lamp_web_4 is up-to-date
+Recreating lamp_lb_1 ... done
 
-## exec ansible container
+
+## Connect to the Ansible master container
 
 ```
 docker-compose exec master bash
 ```
 
-## Ansible commandes
+## Ansible commands
 ```
 # check if pod respond
 root@master> ansible all -m ping -i /etc/ansible/hosts
