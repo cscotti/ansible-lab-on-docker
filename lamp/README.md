@@ -1,8 +1,4 @@
 # Ansible + docker
-video
-<https://www.youtube.com/watch?v=yqLPUOsy-8M>
-<https://devopssec.fr/article/creation-playbook-ansible-stack-lamp#begin-article-section><br>
-<https://www.linkedin.com/pulse/configuring-haproxy-inside-docker-using-ansible-automation-tharak-ram>
 
 ## Start containers
 ```
@@ -49,7 +45,14 @@ docker-compose down
 docker-compose rm
 ```
 
-## Annexe
+# Ressources
+video
+<https://www.youtube.com/watch?v=yqLPUOsy-8M><br>
+<https://devopssec.fr/article/creation-playbook-ansible-stack-lamp#begin-article-section><br>
+<https://www.linkedin.com/pulse/configuring-haproxy-inside-docker-using-ansible-automation-tharak-ram>
+
+
+# Annexe
 ### remove volume
 ```
 docker volume ls
