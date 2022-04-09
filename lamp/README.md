@@ -31,7 +31,7 @@ root@master> ansible-playbook lamp.yml
 # Connect to a lamp pod
 root@master> ssh lamp_web_1
 
-# test web service
+# test web service with the lb (HaProxy)
 curl lamp_lb_1:5000
 
 <html>
