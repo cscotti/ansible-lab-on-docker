@@ -1,4 +1,4 @@
-# Ansible + docker
+# Run LAMP dev environment into Docker with HaProxy
 
 ## Start containers
 ```
