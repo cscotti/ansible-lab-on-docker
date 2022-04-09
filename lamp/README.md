@@ -30,7 +30,19 @@ root@master> ansible-playbook lamp.yml
 
 # Connect to a lamp pod
 root@master> ssh lamp_web_1
+
+# test web service
+curl lamp_lb_1:5000
 ```
+<html>
+    <head>
+        <title>Welcome to lamp_web_5 !</title>
+    </head>
+    <body>
+        <h1>Success! The lamp_web_5 virtual host is working!</h1>
+    </body>
+</html>
+
 
 ## reinit pods in order to test again the playbook
 ```
