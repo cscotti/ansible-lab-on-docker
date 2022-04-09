@@ -1,4 +1,4 @@
-# Accelerate Ansible playbook testing in docker
+# Accelerate Ansible playbook testing with docker
 
 ## Projects
 - Lamp - Mount multiple Lamp server with an Ha-proxy into docker 
