@@ -1,4 +1,4 @@
-# Ansible Docker image (williamyeh/ansible:debian9 -> https://github.com/cscotti/docker-ansible/tree/master/debian9)
+# Ansible Docker image (williamyeh/ansible:debian9 -> https://github.com/William-Yeh/docker-ansible/blob/master/debian9/Dockerfile)
 FROM debian:stretch
 CMD ["bash"]
 RUN /bin/sh -c echo "===> Installing python, sudo, and supporting tools..."  && \
