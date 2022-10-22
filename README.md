@@ -2,4 +2,4 @@
 
 ## Projects
 - Lamp - Mount multiple Lamp server with an Ha-proxy
-- Nodejs - Mount multiple Nodesjs server with an Ha-proxy (WIP)
+- (WIP) Nodejs - Mount multiple Nodesjs server with an Ha-proxy 
