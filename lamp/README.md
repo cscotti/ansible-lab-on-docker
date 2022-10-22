@@ -3,7 +3,7 @@
 ## Start containers
 ```
 $ docker-compose up --scale web=5 -d
-```
+
 lamp_db_1 is up-to-date
 lamp_web_1 is up-to-date
 Recreating lamp_lb_1 ... 
