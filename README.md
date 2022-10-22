@@ -12,5 +12,5 @@ docker run --name myubuntu -it  ubuntu:20.10 /bin/bash -l
 ```
 
 ## Projects
-- Lamp stacks - Mount multiple Lamp server with an Ha-proxy on docker
-- (WIP) Nodejs - Mount multiple Nodesjs server with an Ha-proxy 
+- Lamp stacks - Mount multiple Lamp server, mysql behind an Ha-proxy on docker
+- (WIP) Nodejs stacks - Mount multiple Nodesjs server, mysql behind an Ha-proxy on docker - TODO: add mysql test
