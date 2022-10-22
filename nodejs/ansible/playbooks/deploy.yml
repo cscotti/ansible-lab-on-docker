@@ -1,0 +1,80 @@
+---
+# DEPLOY
+- hosts: web
+  become: true
+  vars_files: vars/main.yml
+  tasks:
+  # - name: install apache and php last version
+  #   apt:
+  #     name:
+  #       - apache2
+  #       - php
+  #       - php-mysql
+  #     state: present
+  #     update_cache: yes
+
+  # - name: Give writable mode to http folder
+  #   file:
+  #     path: /var/www/html
+  #     state: directory
+  #     mode: '0755'
+
+  - name: remove default index.html
+    file:
+      path: /var/www/html/index.html
+      state: absent
+
+  - name: upload web app source
+    copy:
+      src: app/
+      dest: /var/www/html/
+
+  # - name: deploy nodejs database config
+  #   template:
+  #     src: "db-config.php.j2"
+  #     dest: "/var/www/html/db-config.php"
+
+  - name: Copy index test page
+    template:
+      src: "templates/index.html.j2"
+      dest: "/var/www/html/index.html"
+  
+  # =========== proxy for nodejs =====================
+  - name: Copy apache proxy config
+    template:
+      src: "templates/example.com.conf.j2"
+      dest: "/etc/apache2/sites-available/example.com.conf"
+  # =========== proxy for nodejs =====================
+
+  - name: ensure apache service is start
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+
+
+- hosts: lb
+  tasks:
+  - name: "installing Loadbalancer software"
+    package:
+      name: "haproxy"
+      state: present
+  - name: "copying the haproxy.cfg.j2 file to the loadBalancer"
+    template:
+      dest: "/etc/haproxy/haproxy.cfg"
+      src: "./templates/haproxy.cfg.j2"
+  - command: "haproxy -f /etc/haproxy/haproxy.cfg"
+  - name: "restarting the loadBalancer"
+    service:
+      name: "haproxy"
+      state: restarted
+
+# - hosts: web
+#   tasks:        
+#   - name: "installing webserver software"
+#     package:
+#           name: "httpd"
+#   - copy:
+#           dest: "/var/www/html/index.html"
+#           content: "welcome to my webserver"
+#   - command: "/usr/sbin/httpd"

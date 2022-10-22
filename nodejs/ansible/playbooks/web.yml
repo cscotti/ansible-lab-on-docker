@@ -1,21 +1,24 @@
 # WEB SERVER
-
+# https://www.ionos.com/digitalguide/websites/web-development/nodejs-for-a-website-with-apache-on-ubuntu/
 - hosts: web
   become: true
   vars_files: vars/main.yml
 
   tasks:
-  - name: install apache and php last version
+  - name: install apache and nodejs last version
     apt:
       name:
         - apache2
-        - php
-        - php-mysql
-        - php-cli
-        - php-cgi
+        - nodejs
+        - npm
+        - build-essential
         - libapache2-mod-php
       state: present
       update_cache: yes
+
+  # so that it will automatically restart if the server is rebooted
+  - name: Use npm to install PM2
+    command: npm install -g pm2
 
   - name: Give writable mode to http folder
     file:
@@ -39,6 +42,29 @@
   #     src: "db-config.php.j2"
   #     dest: "/var/www/html/db-config.php"
 
+  #===============for nodejs=========================
+  - name: Enable the Apache2 module proxy
+    community.general.apache2_module:
+      state: present
+      name: proxy
+
+  - name: Enable the Apache2 module proxy_http
+    community.general.apache2_module:
+      state: present
+      name: proxy_http
+
+  - name: Delete old pm2 process
+    command: pm2 delete ws-node
+    ignore_errors: yes
+  - name: Start pm2
+    command: pm2 start /var/www/html/nodejs/hello.js --name node-app
+  - name: add PM2 to the startup scripts
+    # so that it will automatically restart if the server is rebooted
+    command: pm2 startup systemd
+
+
+  #========================================
+
   - name: apache2 listen on port 8080
     lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 80" line="Listen 8080" state=present
     notify:
@@ -53,6 +79,7 @@
   #   service:
   #     name: apache2
   #     state: restarted
+      
   - name: ensure apache service is start
     service:
       name: apache2
