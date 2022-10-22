@@ -12,7 +12,7 @@ lamp_web_2 is up-to-date
 lamp_web_3 is up-to-date
 lamp_web_4 is up-to-date
 Recreating lamp_lb_1 ... done
-
+```
 
 ## Connect to the Ansible master container
 
