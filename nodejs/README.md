@@ -65,6 +65,11 @@ docker-compose down
 docker-compose rm
 ```
 
+## test nodejs page with load balancer
+```
+curl nodejs_lb_1:5000
+```
+
 # Ressources
 video
 <https://www.youtube.com/watch?v=yqLPUOsy-8M><br>

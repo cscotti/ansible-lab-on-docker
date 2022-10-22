@@ -29,6 +29,32 @@
       src: app/
       dest: /var/www/html/
 
+  - name: upgrade uuid
+    command: npm install -g uuid@latest
+
+  # so that it will automatically restart if the server is rebooted
+  - name: Use npm to install PM2
+    command: npm install -g pm2
+
+
+  - name: Copy index test page
+    template:
+      src: "templates/hello.js.j2"
+      dest: "/var/www/html/nodejs/hello.js"
+
+  - name: Delete old pm2 process
+    command: pm2 delete node-app
+    ignore_errors: yes
+
+  - name: Start pm2
+    command: pm2 start /var/www/html/nodejs/hello.js --name node-app
+
+  - name: add PM2 to the startup scripts
+    # so that it will automatically restart if the server is rebooted
+    command: pm2 startup systemd
+
+
+
   # - name: deploy nodejs database config
   #   template:
   #     src: "db-config.php.j2"
@@ -39,12 +65,6 @@
       src: "templates/index.html.j2"
       dest: "/var/www/html/index.html"
   
-  # =========== proxy for nodejs =====================
-  - name: Copy apache proxy config
-    template:
-      src: "templates/example.com.conf.j2"
-      dest: "/etc/apache2/sites-available/example.com.conf"
-  # =========== proxy for nodejs =====================
 
   - name: ensure apache service is start
     service:

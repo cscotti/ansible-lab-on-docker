@@ -16,16 +16,17 @@
       state: present
       update_cache: yes
 
-  # so that it will automatically restart if the server is rebooted
-  - name: Use npm to install PM2
-    command: npm install -g pm2
-
   - name: Give writable mode to http folder
     file:
-      path: /var/www/html
+      path: /var/www/html/
       state: directory
       mode: '0755'
 
+  - name: Give writable mode to nodejs folder
+    file:
+      path: /var/www/html/nodejs
+      state: directory
+      mode: '0755'
 
   # - name: remove default index.html
   #   file:
@@ -53,22 +54,26 @@
       state: present
       name: proxy_http
 
-  - name: Delete old pm2 process
-    command: pm2 delete ws-node
-    ignore_errors: yes
-  - name: Start pm2
-    command: pm2 start /var/www/html/nodejs/hello.js --name node-app
-  - name: add PM2 to the startup scripts
-    # so that it will automatically restart if the server is rebooted
-    command: pm2 startup systemd
+  # =========== proxy for nodejs =====================
+  - name: Copy apache proxy config
+    template:
+      src: "templates/example.com.conf.j2"
+      dest: "/etc/apache2/sites-available/example.com.conf"
+  # ==================================================
+  # - name: apache2 listen on port 8080
+  #   lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 80" line="Listen 8080" state=present
+  #   notify:
+  #     - apache service restart
 
+  # - name: "UFW firewall allow HTTP on port 80"
+  #   ufw:
+  #     rule: allow
+  #     port: "80"
+  #     proto: tcp
 
-  #========================================
+  - name: Enable site
+    command: a2ensite example.com.conf
 
-  - name: apache2 listen on port 8080
-    lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 80" line="Listen 8080" state=present
-    notify:
-      - apache service restart
 
   # - name: apache2 virtualhost on port 8080
   #   lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:80>" line="<VirtualHost *:8080>" state=present
