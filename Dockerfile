@@ -1,4 +1,5 @@
-FROM debian8
+# Ansible Docker image (williamyeh/ansible:debian9 -> https://github.com/cscotti/docker-ansible/tree/master/debian9)
+FROM debian:stretch
 CMD ["bash"]
 RUN /bin/sh -c echo "===> Installing python, sudo, and supporting tools..."  && \
   apt-get update -y  &&  apt-get install --fix-missing  && \
