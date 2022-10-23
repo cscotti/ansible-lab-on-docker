@@ -2,10 +2,12 @@
 
 ## Build images
 ```
+$ cd ansible-lab-on-docker/nodejs
 $ docker-compose build
 ```
 ## Start containers
 ```
+$ cd ansible-lab-on-docker/nodejs
 $ docker-compose up --scale web=5 -d
 
 nodejs_db_1 is up-to-date
@@ -19,12 +21,13 @@ Recreating nodejs_lb_1 ... done
 ```
 
 ## Connect to the Ansible master container
-
+Ansible container connexion
 ```
+$ cd ansible-lab-on-docker/nodejs
 docker-compose exec master bash
 ```
 
-## Ansible commands
+Ansible commands
 ```
 
 # check ansible version
