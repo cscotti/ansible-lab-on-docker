@@ -1,6 +1,6 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y openssh-server vim python net-tools telnet curl
+RUN apt-get update && apt-get install -y openssh-server vim python3 net-tools telnet curl ufw
 RUN mkdir /var/run/sshd
 RUN echo 'root:ansible' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -10,6 +10,8 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+# added
+RUN echo "Port 22\nPasswordAuthentication yes\n" >> /etc/ssh/ssh_config && echo "Port 22\nPermitRootLogin yes\n" >> /etc/ssh/sshd_config
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]

@@ -49,16 +49,17 @@
   #   notify:
   #     - restart apache2
   
-  # - name: apache service restart
-  #   service:
-  #     name: apache2
-  #     state: restarted
+  - name: apache service restart
+    service:
+      name: apache2
+      state: restarted
+
   - name: ensure apache service is start
     service:
       name: apache2
       state: started
       enabled: yes
 
-  handlers:
-    - name: restart apache2
-      service: name=apache2 state=restarted
+  # handlers:
+  #   - name: restart apache2
+  #     service: name=apache2 state=restarted

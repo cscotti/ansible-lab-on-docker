@@ -1,6 +1,6 @@
 # Run nodejs environment into Docker with HaProxy
 
-## Build containers
+## Build images
 ```
 $ docker-compose build
 ```
@@ -36,7 +36,7 @@ root@master> ansible all -m ping -i /etc/ansible/hosts
 # Apply playbook
 root@master> ansible-playbook main.yml
 
-# Connect to a nodejs pod
+# Connect to a nodejs container (password : ansible)
 root@master> ssh nodejs_web_1
 
 # test web service with the lb (HaProxy)
@@ -51,6 +51,10 @@ curl nodejs_lb_1:5000
     </body>
 </html>
 ```
+
+## test site
+<http://localhost:5000><br>
+<http://localhost:5000/index.html>
 
 ## reinit pods in order to test again the playbook
 ```

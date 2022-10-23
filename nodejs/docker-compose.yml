@@ -3,8 +3,8 @@ services:
   master:
     build:
       context: .
-      #dockerfile: ./master.Dockerfile
-      dockerfile: ../master.Dockerfile
+      dockerfile: ./master.Dockerfile
+      #dockerfile: ../master.Dockerfile
     working_dir: /root/playbooks
     volumes:
       - ./ansible/playbooks:/root/playbooks

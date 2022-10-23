@@ -1,6 +1,6 @@
 # Run LAMP environment into Docker with HaProxy
 
-## Build containers
+## Build images
 ```
 $ docker-compose build
 ```
@@ -32,7 +32,7 @@ root@master> ansible all -m ping -i /etc/ansible/hosts
 # Apply playbook
 root@master> ansible-playbook main.yml
 
-# Connect to a lamp pod
+# Connect to a lamp container (password : ansible)
 root@master> ssh lamp_web_1
 
 # test web service with the lb (HaProxy)
@@ -47,6 +47,12 @@ curl lamp_lb_1:5000
     </body>
 </html>
 ```
+
+# test php site
+<http://localhost:5000/info.php><br>
+<http://localhost:5000>
+
+
 
 ## reinit pods in order to test again the playbook
 ```

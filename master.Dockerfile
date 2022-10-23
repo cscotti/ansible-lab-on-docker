@@ -1,7 +1,6 @@
 # Ansible Docker image (williamyeh/ansible:debian9 -> https://github.com/William-Yeh/docker-ansible/blob/master/debian9/Dockerfile)
 FROM debian:bullseye
 
-CMD ["bash"]
 RUN /bin/sh -c echo "===> Installing python, sudo, and supporting tools..."  && \
   apt-get update -y  &&  apt-get install --fix-missing  && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y \
