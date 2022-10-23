@@ -29,14 +29,6 @@
       src: app/
       dest: /var/www/html/
 
-  - name: upgrade uuid
-    command: npm install -g uuid@latest
-
-  # so that it will automatically restart if the server is rebooted
-  - name: Use npm to install PM2
-    command: npm install -g pm2
-
-
   - name: Copy index test page
     template:
       src: "templates/hello.js.j2"
@@ -52,8 +44,6 @@
   - name: add PM2 to the startup scripts
     # so that it will automatically restart if the server is rebooted
     command: pm2 startup systemd
-
-
 
   # - name: deploy nodejs database config
   #   template:

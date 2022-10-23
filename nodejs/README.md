@@ -43,7 +43,7 @@ root@master> ansible-playbook main.yml
 root@master> ssh nodejs_web_1
 
 # test web service with the lb (HaProxy)
-curl nodejs_lb_1:5000
+root@master> curl nodejs_lb_1:5000
 
 <html>
     <head>
@@ -53,10 +53,16 @@ curl nodejs_lb_1:5000
         <h1>Success! The nodejs_web_5 virtual host is working!</h1>
     </body>
 </html>
+
+
+# refresh nodejs page on server
+# nodejs script is load from ./ansible-lab-on-docker/nodejs/ansible/playbooks/templates/hello.js.j2
+root@master> ansible-playbook deploy.yml
 ```
 
 ## test site
-<http://localhost:5000><br>
+<http://localhost:5000><br> 
+(nodejs script is load from ./ansible-lab-on-docker/nodejs/ansible/playbooks/templates/hello.js.j2)<br>
 <http://localhost:5000/index.html>
 
 ## reinit pods in order to test again the playbook

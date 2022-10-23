@@ -52,6 +52,7 @@ curl lamp_lb_1:5000
 
 # test php site
 <http://localhost:5000/info.php><br>
+(phpinfo script is load from ./ansible-lab-on-docker/lamp/ansible/playbooks/app/info.php)<br>
 <http://localhost:5000>
 
 
