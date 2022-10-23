@@ -1,6 +1,6 @@
 # Accelerate Ansible playbook testing with docker
 
-## requirements
+## Requirements
 - docker
 - docker-compose
 
